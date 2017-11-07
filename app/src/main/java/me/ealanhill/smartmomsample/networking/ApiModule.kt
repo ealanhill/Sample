@@ -2,16 +2,19 @@ package me.ealanhill.smartmomsample.networking
 
 import dagger.Module
 import dagger.Provides
+import me.ealanhill.smartmomsample.detail.PostDetailActionCreator
 import me.ealanhill.smartmomsample.posts.PostsActionCreator
 import javax.inject.Singleton
 
 @Module
 class ApiModule(private val postsApi: Api) {
 
-    private val contactsActionCreator: PostsActionCreator
+    private val postsActionCreator: PostsActionCreator
+    private val postDetailActionCreator: PostDetailActionCreator
 
     init {
-        contactsActionCreator = PostsActionCreator(postsApi)
+        postsActionCreator = PostsActionCreator(postsApi)
+        postDetailActionCreator = PostDetailActionCreator(postsApi)
     }
 
     @Provides
@@ -20,5 +23,9 @@ class ApiModule(private val postsApi: Api) {
 
     @Provides
     @Singleton
-    fun provideContactsActionCreatore(): PostsActionCreator = contactsActionCreator
+    fun providePostsActionCreator(): PostsActionCreator = postsActionCreator
+
+    @Provides
+    @Singleton
+    fun providePostDetailActionCreator(): PostDetailActionCreator = postDetailActionCreator
 }

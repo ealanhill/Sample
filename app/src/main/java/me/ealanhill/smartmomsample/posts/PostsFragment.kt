@@ -15,6 +15,7 @@ import me.ealanhill.smartmomsample.PostsStore
 import me.ealanhill.smartmomsample.R
 import me.ealanhill.smartmomsample.databinding.FragmentPostsBinding
 import me.ealanhill.smartmomsample.detail.PostDetailAction
+import me.ealanhill.smartmomsample.detail.PostDetailActionCreator
 import me.ealanhill.smartmomsample.detail.PostDetailFragment
 import me.ealanhill.smartmomsample.networking.model.Post
 import javax.inject.Inject
@@ -32,6 +33,9 @@ class PostsFragment : Fragment(), PostsAdapter.PostsOnClickListener {
 
     @Inject
     lateinit var actionCreator: PostsActionCreator
+
+    @Inject
+    lateinit var postDetailActionCreator: PostDetailActionCreator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +82,7 @@ class PostsFragment : Fragment(), PostsAdapter.PostsOnClickListener {
     }
 
     override fun onClick(post: Post) {
-        store.dispatch(PostDetailAction(post))
+        store.dispatch(postDetailActionCreator.retrievePostDetail(post.uuid))
         (activity as MainActivity).swapFragments(PostDetailFragment(), addToBackStack = true)
     }
 }

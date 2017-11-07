@@ -13,37 +13,37 @@ import me.ealanhill.smartmomsample.GlideApp
 import me.ealanhill.smartmomsample.PostsStore
 import me.ealanhill.smartmomsample.R
 import me.ealanhill.smartmomsample.databinding.FragmentPostDetailBinding
-import me.ealanhill.smartmomsample.networking.model.Post
+import me.ealanhill.smartmomsample.networking.model.Details
 import me.ealanhill.smartmomsample.posts.PostsViewModel
 
 class PostDetailFragment : Fragment() {
 
-    private lateinit var contactsViewModel: PostsViewModel
+    private lateinit var postsViewModel: PostsViewModel
     private lateinit var store: PostsStore
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        contactsViewModel = ViewModelProviders.of(activity)
+        postsViewModel = ViewModelProviders.of(activity)
                 .get(PostsViewModel::class.java)
-        store = contactsViewModel.store
+        store = postsViewModel.store
         val binding = DataBindingUtil.inflate<FragmentPostDetailBinding>(inflater, R.layout.fragment_post_detail, container, false)
-        bindContactDetails(binding, store.state.postDetail)
-        contactsViewModel.state.observe(this, Observer { data ->
-            data?.let { bindContactDetails(binding, data.postDetail) }
+        bindPostDetails(binding, store.state.postDetail)
+        postsViewModel.state.observe(this, Observer { data ->
+            data?.let { bindPostDetails(binding, data.postDetail) }
         })
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun bindContactDetails(binding: FragmentPostDetailBinding, post: Post) {
+    private fun bindPostDetails(binding: FragmentPostDetailBinding, details: Details) {
         binding.apply {
-            detailMessage.text = post.message
-            detailPoster.text = post.poster.getName()
-            detailDate.text = post.getDate()
-            if (post.pictures.isEmpty()) {
+            detailMessage.text = details.message
+            detailPoster.text = details.poster.getName()
+            detailDate.text = details.getDate()
+            if (details.pictures.isEmpty()) {
                 detailImage.visibility = ImageView.GONE
             } else {
                 GlideApp.with(activity)
-                        .load(post.pictures[0].url)
+                        .load(details.pictures[0].url)
                         .into(detailImage)
             }
         }
