@@ -1,6 +1,7 @@
 package me.ealanhill.smartmomsample.networking.model
 
 import com.google.gson.annotations.SerializedName
+import java.text.DateFormat
 import java.util.*
 
 data class Post(val uuid: String = "",
@@ -17,4 +18,8 @@ data class Post(val uuid: String = "",
         POST,
         LOADING
     }
+
+    private val dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US)
+
+    fun getDate(): String = dateFormat.format(created)
 }

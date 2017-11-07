@@ -28,7 +28,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding" />
+                android:layout_marginBottom="@dimen/standard_padding"
+                android:gravity="end" />
+
+            <TextView
+                android:id="@+id/detailDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_padding"
+                android:gravity="end" />
 
         </LinearLayout>
     </ScrollView>

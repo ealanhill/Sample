@@ -27,6 +27,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_padding"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/postImage"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -38,6 +40,15 @@
             app:layout_constraintStart_toEndOf="@id/postImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/postMessage"/>
+
+        <TextView
+            android:id="@+id/postDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_padding"
+            app:layout_constraintStart_toEndOf="@id/postImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/posterName"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

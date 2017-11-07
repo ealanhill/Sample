@@ -38,6 +38,7 @@ class PostDetailFragment : Fragment() {
         binding.apply {
             detailMessage.text = post.message
             detailPoster.text = post.poster.getName()
+            detailDate.text = post.getDate()
             if (post.pictures.isEmpty()) {
                 detailImage.visibility = ImageView.GONE
             } else {

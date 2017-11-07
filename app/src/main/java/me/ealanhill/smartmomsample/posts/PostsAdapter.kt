@@ -93,6 +93,7 @@ class PostsAdapter(private var posts: List<Post>,
                     }
                     postMessage.text = post.message
                     posterName.text = post.poster.getName()
+                    postDate.text = post.getDate()
                 }
                 binding.root.setOnClickListener { _ -> onClickListener.onClick(post) }
             }
