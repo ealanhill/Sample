@@ -14,6 +14,8 @@ import me.ealanhill.smartmomsample.MainActivity
 import me.ealanhill.smartmomsample.PostsStore
 import me.ealanhill.smartmomsample.R
 import me.ealanhill.smartmomsample.databinding.FragmentPostsBinding
+import me.ealanhill.smartmomsample.detail.PostDetailAction
+import me.ealanhill.smartmomsample.detail.PostDetailFragment
 import me.ealanhill.smartmomsample.networking.model.Post
 import javax.inject.Inject
 
@@ -50,7 +52,7 @@ class PostsFragment : Fragment(), PostsAdapter.PostsOnClickListener {
     }
 
     override fun onClick(post: Post) {
-//        store.dispatch(ContactDetailAction(contact))
-//        (activity as MainActivity).swapFragments(ContactDetailFragment(), addToBackStack = true)
+        store.dispatch(PostDetailAction(post))
+        (activity as MainActivity).swapFragments(PostDetailFragment(), addToBackStack = true)
     }
 }
