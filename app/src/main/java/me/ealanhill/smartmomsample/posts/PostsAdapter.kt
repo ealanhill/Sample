@@ -57,9 +57,9 @@ class PostsAdapter(private var posts: List<Post>,
 
     override fun getItemCount(): Int = posts.size
 
-    fun setData(newContacts: List<Post>) {
-        if (newContacts != posts) {
-            posts = newContacts
+    fun setData(newPosts: List<Post>) {
+        if (newPosts != posts) {
+            posts = newPosts
             notifyDataSetChanged()
         }
     }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import me.ealanhill.smartmomsample.PostsStore
 import me.ealanhill.smartmomsample.R
 import me.ealanhill.smartmomsample.databinding.FragmentPostDetailBinding
 import me.ealanhill.smartmomsample.networking.model.Details
+import me.ealanhill.smartmomsample.networking.model.Post
+import me.ealanhill.smartmomsample.posts.PostsAdapter
 import me.ealanhill.smartmomsample.posts.PostsViewModel
 
 class PostDetailFragment : Fragment() {
@@ -46,6 +49,8 @@ class PostDetailFragment : Fragment() {
                         .load(details.pictures[0].url)
                         .into(detailImage)
             }
+            detailRecyclerView.layoutManager = LinearLayoutManager(context)
+            detailRecyclerView.adapter = PostDetailAdapter(details.comments)
         }
     }
 }

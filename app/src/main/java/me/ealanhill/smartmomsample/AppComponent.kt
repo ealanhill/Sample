@@ -1,6 +1,7 @@
 package me.ealanhill.smartmomsample
 
 import dagger.Component
+import me.ealanhill.smartmomsample.detail.PostDetailAdapter
 import me.ealanhill.smartmomsample.networking.ApiModule
 import me.ealanhill.smartmomsample.posts.PostsAdapter
 import me.ealanhill.smartmomsample.posts.PostsFragment
@@ -14,4 +15,6 @@ interface AppComponent {
     fun inject(postsFragment: PostsFragment)
 
     fun inject(postsAdapter: PostsAdapter)
+
+    fun inject(postDetailAdapter: PostDetailAdapter)
 }
