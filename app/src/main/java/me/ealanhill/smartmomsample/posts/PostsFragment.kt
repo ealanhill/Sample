@@ -22,6 +22,10 @@ import javax.inject.Inject
 
 class PostsFragment : Fragment(), PostsAdapter.PostsOnClickListener {
 
+    companion object {
+        private val LAYOUT_MANAGER = "RECYCLER_LAYOUT_MANAGER"
+    }
+
     private lateinit var binding: FragmentPostsBinding
     private lateinit var contactsViewModel: PostsViewModel
     private lateinit var store: PostsStore
@@ -35,20 +39,42 @@ class PostsFragment : Fragment(), PostsAdapter.PostsOnClickListener {
                 .get(PostsViewModel::class.java)
         store = contactsViewModel.store
         App.COMPONENT.inject(this)
-        store.dispatch(actionCreator.retrieveContacts())
+        store.dispatch(actionCreator.retrievePosts())
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            binding.postsRecyclerView
+                    .layoutManager
+                    .onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER))
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<FragmentPostsBinding>(inflater, R.layout.fragment_posts, container, false)
                 .apply {
                     postsRecyclerView.layoutManager = LinearLayoutManager(context)
-                    postsRecyclerView.adapter = PostsAdapter(store.state.posts, this@PostsFragment)
+                    postsRecyclerView.adapter = PostsAdapter(
+                            store.state.posts,
+                            this@PostsFragment,
+                            object : PostsAdapter.OnBottomReachedListener{
+                                override fun onBottomReached(post: Post) {
+                                    actionCreator.retrievePosts(post.uuid)
+                                }
+                            })
                 }
 
         contactsViewModel.state.observe(this, Observer { data ->
             data?.let { (binding.postsRecyclerView.adapter as PostsAdapter).setData(data.posts) }
         })
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(LAYOUT_MANAGER,
+                binding.postsRecyclerView.layoutManager.onSaveInstanceState())
     }
 
     override fun onClick(post: Post) {
